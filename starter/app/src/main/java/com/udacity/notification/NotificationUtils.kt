@@ -13,11 +13,10 @@ import com.udacity.DetailActivity
 import com.udacity.R
 import com.udacity.model.DownloadInfo
 
-private const val NOTIFICATION_ID = 0
-private const val NOTIFICATION_INFO_KEY = "notification_info"
+const val NOTIFICATION_ID = 0
+const val NOTIFICATION_INFO_KEY = "notification_info"
 
 fun NotificationManager.sendStatusNotification(
-    messageBody: String,
     applicationContext: Context,
     downloadInfo: DownloadInfo
 ) {
@@ -31,12 +30,6 @@ fun NotificationManager.sendStatusNotification(
         PendingIntent.FLAG_UPDATE_CURRENT //specifies the option to create a new pending intent or update an existing one
     )
 
-//    val bigPicStyle = NotificationCompat.BigPictureStyle()
-//        .bigPicture(eggImage)
-//        .bigLargeIcon(null) //so the large icon goes away when expanded
-
-
-    // Build the notification
     val builder = NotificationCompat.Builder(
         applicationContext,
         applicationContext.getString(R.string.default_notification_channel_id)
@@ -44,11 +37,9 @@ fun NotificationManager.sendStatusNotification(
         .setSmallIcon(R.drawable.ic_assistant_black_24dp)
         .setColor(ContextCompat.getColor(applicationContext, R.color.colorAccent))
         .setContentTitle(applicationContext.getString(R.string.notification_title))
-        .setContentText(messageBody)
-        .setContentIntent(contentPendingIntent)
+        .setContentText(applicationContext.getString(R.string.notification_message, downloadInfo.name))
+        //.setContentIntent(contentPendingIntent)
         .setAutoCancel(true)
-//        .setStyle(bigPicStyle)
-//        .setLargeIcon(eggImage)
         .addAction(
             R.drawable.ic_baseline_text_snippet_24,
             applicationContext.getString(R.string.check_status),
